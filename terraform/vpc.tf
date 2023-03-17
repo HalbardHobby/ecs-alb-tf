@@ -29,7 +29,7 @@ resource "aws_subnet" "alb_private_subnet" {
   cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, 6)
   map_public_ip_on_launch = false
 
-    tags = {
+  tags = {
     "Name" = "alb_private_subnet"
   }
 }
@@ -44,7 +44,7 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id = aws_subnet.alb_public_subnet.id
+  subnet_id     = aws_subnet.alb_public_subnet.id
 
   tags = {
     Name = "alb_nat"
