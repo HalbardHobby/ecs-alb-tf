@@ -30,6 +30,6 @@ resource "aws_route_table_association" "private_alb" {
 }
 
 resource "aws_route_table_association" "public_alb" {
-  subnet_id      = aws_subnet.alb_public_subnet.id
+  subnet_id      = aws_subnet.alb_public_subnet_1.id
   route_table_id = aws_route_table.public.id
 }
