@@ -14,13 +14,25 @@ resource "aws_internet_gateway" "igw" {
   }
 }
 
-resource "aws_subnet" "alb_public_subnet" {
+resource "aws_subnet" "alb_public_subnet_1" {
   vpc_id                  = aws_vpc.main.id
-  cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, 1)
+  cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, 15)
+  availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
 
   tags = {
-    "Name" = "alb_public_subnet"
+    "Name" = "alb_public_subnet_1"
+  }
+}
+
+resource "aws_subnet" "alb_public_subnet_2" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = cidrsubnet(aws_vpc.main.cidr_block, 8, 28)
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = true
+
+  tags = {
+    "Name" = "alb_public_subnet_2"
   }
 }
 
@@ -44,7 +56,7 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.alb_public_subnet.id
+  subnet_id     = aws_subnet.alb_public_subnet_1.id
 
   tags = {
     Name = "alb_nat"

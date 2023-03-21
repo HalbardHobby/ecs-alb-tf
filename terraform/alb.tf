@@ -2,7 +2,8 @@ resource "aws_lb" "application_load_balancer" {
   name               = "application-load-balancer"
   internal           = false
   load_balancer_type = "application"
-  subnets            = [aws_subnet.alb_public_subnet.id]
+  subnets = [aws_subnet.alb_public_subnet_1.id,
+  aws_subnet.alb_public_subnet_2.id]
 }
 
 resource "aws_security_group" "alb_security_group" {
